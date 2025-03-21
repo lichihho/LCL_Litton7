@@ -10,7 +10,7 @@ PROJECT="litton7-internal"
 IMAGE_NAME='lclab/litton7-internal'
 IMAGE_VERSION='0.0.0'
 
-systemctl stop "$IMAGE_NAME"
+systemctl stop "$PROJECT"
 
 docker image rm "$IMAGE_NAME:$IMAGE_VERSION"
 docker image rm "$IMAGE_NAME:latest"
