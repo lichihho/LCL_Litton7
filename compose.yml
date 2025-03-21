@@ -6,7 +6,7 @@ services:
     volumes:
       - "${DATABASES_ROOT}:/mnt/ai_data:ro"
     ports:
-      - "${HOST_IP:-127.0.0.1}:8080:8000"
+      - "${HOST_IP:-127.0.0.1}:${HOST_PORT:-8081}:8000"
     environment:
       - BATCH_SIZE=${BATCH_SIZE}
     restart: unless-stopped
