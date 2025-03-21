@@ -4,6 +4,12 @@
 #
 set -e
 
+# Check if script is run as root
+if [ "$EUID" -ne 0 ]; then
+  echo "This script must be run as root"
+  exit 1
+fi
+
 PROJECT=litton7-internal
 APP_USER="lclwebservice"
 APP_DIR="/opt/$PROJECT"
@@ -34,8 +40,15 @@ if ! id "$APP_USER" &>/dev/null; then
   useradd --no-create-home --system --shell /bin/false "$APP_USER"
 fi
 
+# Check if target directory exists and handle it
+if [ -d "$APP_DIR" ]; then
+  echo "Directory $APP_DIR already exists. Creating backup..."
+  mv "$APP_DIR" "$APP_DIR.$(date +%Y%m%d%H%M%S).bak"
+fi
+
+mkdir -p "$APP_DIR"
 cp -r . "$APP_DIR"
-mkdir "$APP_DIR/logs"
+mkdir -p "$APP_DIR/logs"
 ln -sf "$SERVICE_PATH" "$SYSTEMD_SERVICE_PATH"
 chown -R "$APP_USER":"$APP_USER" "$APP_DIR"
 
@@ -45,7 +58,7 @@ docker compose up -d >/dev/null
 printf 'initialize service...  '; waiting_for 10
 docker compose down
 
-systemctl daemon-reload && systemctl start ladeco-internal && {
+systemctl daemon-reload && systemctl start "$PROJECT" && {
   printf 'start service...  '; waiting_for 30
 
   echo 'service installed successfully'
