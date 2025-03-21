@@ -23,7 +23,7 @@ LABELS = [
     "Ephemeral",
     "Canopied",
 ]
-NAS_DATABASE_ROOT = "/mnt/run_database"
+NAS_DATABASE_ROOT = "/mnt/ai_data/"
 BATCH_SIZE = int(os.environ.get("BATCH_SIZE", 128))
 
 if torch.cuda.is_available():

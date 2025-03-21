@@ -11,11 +11,11 @@ RUN curl -fsSLo /app/Litton-7type-visual-landscape-model.pth https://lclab.thu.e
 RUN apt-get install -y cron
 RUN echo "5 4 * * 0 find /tmp -type f -name 'LaDeco-*.csv' -delete" > /etc/cron.d/delete-ladeco-files
 
-COPY app.py server.py /app
+COPY app.py server.py /app/
 COPY examples /app/examples
 
 # mount run_database here
-RUN mkdir -p /mnt/run_database
+RUN mkdir -p /mnt/ai_data
 
 EXPOSE 8000
 

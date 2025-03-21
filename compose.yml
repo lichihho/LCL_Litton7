@@ -4,7 +4,7 @@ services:
     image: lclab/litton7-internal:latest
     container_name: litton7-internal
     volumes:
-      - "${DATABASES_ROOT}:/mnt/run_database:ro"
+      - "${DATABASES_ROOT}:/mnt/ai_data:ro"
     ports:
       - "${HOST_IP:-127.0.0.1}:8080:8000"
     environment:
