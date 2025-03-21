@@ -1,0 +1,11 @@
+services:
+  proxy:
+    build: .
+    image: lclab/litton7-public-proxy
+    container_name: litton7-proxy
+    environment:
+      - LITTON7_INTERNAL_API_ENDPOINT=${LITTON7_INTERNAL_API_ENDPOINT}
+    ports:
+      - "${HOST_IP}:${HOST_PORT}:8000"
+    volumes:
+      - "${SYNOLOGY_CERT_DIR}:/etc/www/certs/:ro"
