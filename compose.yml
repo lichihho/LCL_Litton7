@@ -1,0 +1,17 @@
+services:
+  app:
+    build: .
+    image: lclab/litton7-public:latest
+    container_name: litton7-public
+    ports:
+      - "${HOST_IP:-127.0.0.1}:${HOST_PORT:-8080}:8000"
+    environment:
+      - BATCH_SIZE=${BATCH_SIZE}
+    restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
