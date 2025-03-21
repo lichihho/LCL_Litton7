@@ -1,7 +1,0 @@
-# PyTorch model weight
-*.pth
-__pycache__
-.venv
-_venv
-.ruff_cache
-images
